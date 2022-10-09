@@ -12,13 +12,15 @@ import {
   orderBy,
   where,
   doc,
-  deleteDoc
+  deleteDoc,
+  updateDoc
 } from "firebase/firestore";
 
 function Admin() {
   const [tarefaInput, setTarefaInput] = useState("");
   const [user, setUser] = useState({});
   const [tarefas, setTarefas] = useState([]);
+  const [edit, setEdit] = useState([]);
 
   useEffect(() => {
     async function loadTarefa() {
@@ -60,6 +62,12 @@ function Admin() {
       alert("Digite sua tarefa...");
       return;
     }
+    
+    if(edit.id){
+        handleUpDateTarefa();
+        return;
+    }
+
 
     await addDoc(collection(db, "tarefas"), {
       tarefa: tarefaInput,
@@ -83,6 +91,27 @@ async function deleteTarefa(id){
     const docRef = doc(db, "tarefas", id)
     await deleteDoc(docRef)
 }
+
+function editTarefa(item){
+    setTarefaInput(item.tarefa);
+    setEdit(item);
+}
+
+async function handleUpDateTarefa(){
+    const docRef = doc(db, "tarefas", edit.id)
+    await updateDoc(docRef, {
+        tarefa: tarefaInput
+    })
+    .then(() => {
+        console.log("Tarefa Atualizada")
+        tarefaInput('')
+        setEdit({})
+    })
+    .catch(() => {
+        setTarefaInput('')
+        setEdit({})
+    })
+}
   return (
     <div className="admin-container">
       <h1>Minhas Listas</h1>
@@ -94,14 +123,18 @@ async function deleteTarefa(id){
           onChange={(e) => setTarefaInput(e.target.value)}
         />
 
-        <button type="btn-register">Registrar tarefa</button>
+        {Object.keys(edit).length > 0 ? (
+            <button type="btn-register">Atualizar tarefa</button>
+        ) : (
+            <button type="btn-register">Registrar tarefa</button>
+        )}
       </form>
 
       {tarefas.map((item) => (
         <article key={item.id} className="list">
           <p>{item.tarefa}</p>
           <div>
-            <button>Editar</button>
+            <button onClick={() => editTarefa(item)}>Editar</button>
             <button className="btn-delete" onClick={ () => deleteTarefa(item.id)}>Concluir</button>
           </div>
         </article>
