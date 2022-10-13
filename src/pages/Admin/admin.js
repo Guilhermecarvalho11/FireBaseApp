@@ -34,7 +34,7 @@ function Admin() {
         const q = query(
           tarefaRef,
           orderBy("created", "desc"),
-          where("userUid", "==", data.uid)
+          where("userUid", "==", data?.uid)
         );
 
         const unsub = onSnapshot(q, (snapshot) => {
@@ -135,7 +135,7 @@ async function handleUpDateTarefa(){
           <p>{item.tarefa}</p>
           <div>
             <button onClick={() => editTarefa(item)}>Editar</button>
-            <button className="btn-delete" onClick={ () => deleteTarefa(item.id)}>Concluida</button>
+            <button className="btn-delete" onClick={ () => deleteTarefa(item.id)}>Concluir</button>
           </div>
         </article>
       ))}

@@ -19,13 +19,27 @@
     max-width: 600px;
 }
 
-.form input{
-    border: 0;
-    margin-bottom: 12px;
+.input{
+    margin-bottom: 8px;
     height: 36px;
     border-radius: 4px;
-    padding: 0 8px;
+    padding: 0 10px;
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
 }
+.mgnErro{
+    color: rgb(220, 47, 47);
+    font-size:13px;
+    margin-top: none;
+    
+}
+
+.inputErro{
+    border: red solid 2px;
+    background-color: rgb(236, 137, 137)
+}
+
 
 .form button{
     height: 36px;

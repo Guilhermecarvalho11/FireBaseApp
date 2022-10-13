@@ -1,0 +1,24 @@
+.formInput {
+    display:flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 600px;
+}
+
+.formInput  input{
+    border: 0;
+    margin-bottom: 12px;
+    height: 36px;
+    border-radius: 4px;
+    padding: 0 8px;
+    background-color: rgba(152, 9, 9, 0.515);
+    border: solid 2px red;
+    color: gray;
+}
+
+.formInput span{
+
+    font-size: 10px;
+    color: rgba(152, 9, 9, 0.515);
+
+}
