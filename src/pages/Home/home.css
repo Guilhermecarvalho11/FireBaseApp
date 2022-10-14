@@ -19,26 +19,40 @@
     max-width: 600px;
 }
 
+.labelInput{
+    display: flex;
+    position: relative;
+}
+
 .input{
-    margin-bottom: 8px;
+    margin-bottom: 30px;
     height: 36px;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 0 10px;
     box-shadow: 0 0 0 0;
     border: 0 none;
     outline: 0;
+    width: 100%;
+    bottom: 10px;
+    
 }
+
 .mgnErro{
     color: rgb(220, 47, 47);
-    font-size:13px;
-    margin-top: none;
-    
+    font-size:12px;
+    position: absolute;
+    bottom: 15px;
 }
 
 .inputErro{
     border: red solid 2px;
-    background-color: rgb(236, 137, 137)
+    border-radius: 8px;
+    background-color: rgb(236, 137, 137);
+    transition: all 1s;
+    color:#FFF;
+
 }
+
 
 
 .form button{
@@ -64,3 +78,19 @@
     margin: 14px 0;
     font-size: 14px;
 }
+
+.emailSvg{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    fill: #3366ff;
+}
+
+.closedSvg{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    fill: black;
+    width: 22px;
+}
+

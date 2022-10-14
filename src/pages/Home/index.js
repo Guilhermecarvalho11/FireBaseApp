@@ -6,6 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConections";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "./home.css";
+import  emailSvg   from '../../img/email.svg';
+import passwordClosed from '../../img/passwordClosed.svg';
+import  passwordOpen from '../../img/email.svg';
 
 function Home() {
   const [email, setEmail] = useState("");
@@ -27,7 +30,7 @@ function Home() {
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
 
   const inputEmailClass = ["input"];
-  const inputPasswordClass = ['input']
+  const inputPasswordClass = ["input"];
 
   async function handleLogin(data) {
     console.log(data);
@@ -40,47 +43,52 @@ function Home() {
         .catch((e) => {
           console.log("deu ruim" + " " + e);
         });
-    } 
+    }
   }
 
-  if(errors.email) inputEmailClass.push('inputErro');
-  if(errors.password) inputPasswordClass.push('inputErro'); 
-  
+  if (errors.email) inputEmailClass.push("inputErro");
+  if (errors.password) inputPasswordClass.push("inputErro");
 
   return (
     <div className="home-container">
       <h1>Lista de Tarefas</h1>
-      <span>Gerencia sua agenda de foma Fácil..</span>
+      <span>Gerencie sua agenda de foma Fácil..</span>
 
       <form className="form" onSubmit={handleSubmit(handleLogin)}>
+        <label className="labelInput">
         <input
           className={inputEmailClass.join(" ")}
           name="email"
+          
           {...register("email", {
-            required: { value: true, message: "Insira um E-mail no formato: email@exemple.com" },
+            required: {
+              value: true,
+              message: "Insira um E-mail no formato: email@exemple.com",
+            },
             pattern: { value: emailRegex, message: "e-mail não valido" },
           })}
           type="text"
-          placeholder="Digite seu email..."
+          placeholder="Usuário"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-
         />
-        {
-          <span className="mgnErro">
-            <ErrorMessage errors={errors} name="email" />
-          </span>
-        }
+        <img className="emailSvg" src={emailSvg} />
+        <span className="mgnErro">
+          <ErrorMessage errors={errors} name="email" />
+        </span>
+        </label>
 
+        
+        <label className="labelInput">
         <input
           className={inputPasswordClass.join(" ")}
           name="password"
           {...register("password", {
-            required: {value: true, message:"Insira uma senha"},
+            required: { value: true, message: "Insira uma senha" },
             pattern: {
               value: passwordRegex,
               message:
-                "Deve conter ao menos um caractere especial, uma letra maiúscula e uma minúscula",
+                "Deve conter ao menos um caractere especial, um número, uma letra maiúscula e uma minúscula",
             },
             minLength: {
               value: 8,
@@ -89,20 +97,20 @@ function Home() {
             maxLength: { value: 14, message: "senha maior que 14 dígitos" },
           })}
           type="password"
+          placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        {
-          <span className="mgnErro">
+        <img className="closedSvg" src={passwordClosed} />
+        <span className="mgnErro">
             <ErrorMessage errors={errors} name="password" />
           </span>
-        }
+        </label>
 
         <button type="submit">Acessar</button>
       </form>
       <Link className="button-link" to={"/register"}>
-        Não possui conta? CADASTRA-SE
+        Não possui conta? CADASTRE-SE
       </Link>
     </div>
   );
